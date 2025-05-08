@@ -3,6 +3,18 @@ permalink: /about/
 title: "About"
 ---
 
-Tempor velit sint sunt ipsum tempor enim ad qui ullamco. Est dolore anim ad velit duis dolore minim sunt aliquip amet commodo labore. Ut eu pariatur aute ea aute excepteur laborum. Esse ea esse excepteur minim mollit qui cillum excepteur ex dolore magna. Labore deserunt fugiat incididunt incididunt sint ea. Consequat dolore aute laboris quis proident quis non et est consectetur ex eiusmod sit culpa.
+Jonathan Hansen is a data scientist and machine learning engineer with a passion for turning complex data into actionable insights. He holds an M.S. in Data Science from Indiana University (May 2025) and brings a unique blend of hands-on technical expertise and real-world business acumen, honed through years in operations management and supply chain planning.
 
-Cupidatat ea do et in excepteur in. Ad nostrud ut est esse eu duis ea sunt eiusmod. Aliquip tempor veniam sint elit fugiat. Velit incididunt laboris amet incididunt labore dolore irure velit excepteur commodo deserunt laborum. Consectetur eu fugiat veniam veniam Lorem labore magna eiusmod. Ea occaecat reprehenderit pariatur consectetur minim labore ut aliquip.
+Throughout his career, he has:
+
+Bridged theory and practice, designing end-to-end modern data pipelines on Azure, from raw ingestion to polished OLAP cubes in Power BI.
+
+Engineered computer vision solutions, fine-tuning semantic segmentation models (DeepLabV3, UNet variants) on post-disaster UAV imagery to estimate reconstruction costs.
+
+Optimized pricing strategies, building predictive models and clustering frameworks to help clients such as OpinionRoute balance bid-win rates and profitability.
+
+Now based in Copenhagen, Jon specializes in Python, SQL, DuckDB, and cloud platforms (Azure, Databricks). He’s equally comfortable writing scalable ETL code as he is tuning deep learning architectures in PyTorch and TensorFlow. A lifelong learner, he’s currently exploring geospatial analytics, sharpening his Danish, and contributing to open-source projects.
+
+Outside of work, Jon cherishes family adventures with his wife (a behavior analyst) and their two young children and loves hunting down new coffee spots.
+
+Connect with Jon to discuss AI innovation, data-driven strategy, or life in Denmark.
