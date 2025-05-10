@@ -9,7 +9,6 @@ author_profile: true
 
 <div style="text-align: center; margin-bottom: 40px;">
   <h1 style="margin-bottom: 40px;">Welcome!</h1>
-  <p>Feel free to look around!</p>
   <img src="{{ site.baseurl }}/assets/images/photo3.jpg" alt="My Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 40px;"/>
   <p>Hello and welcome to my personal website. I'm excited to share my projects and thoughts with you.</p>
   <p>Feel free to look around!</p>
