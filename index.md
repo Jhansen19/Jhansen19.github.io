@@ -8,10 +8,11 @@ author_profile: true
 
 # Welcome to My Site!
 
-![My Profile Picture]({{ site.baseurl }}/assets/images/photo.jpg)
+<img src="{{ site.baseurl }}/assets/images/photo.jpg" alt="My Profile Picture" style="width: 150px; height: auto;"/>
 
 Hello and welcome to my personal website. I'm excited to share my projects and thoughts with you.
 
 Feel free to look around!
+
 
 
