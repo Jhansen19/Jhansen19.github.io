@@ -3,15 +3,13 @@ permalink: /projects/
 title: "Projects"
 ---
 
-# My Projects
-
 Welcome to the Projects section of my website! Below, you'll find a showcase of some of the projects I've been working on. Each project is linked to its GitHub repository, where you can explore the code, documentation, and additional details.
 
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
 
   <!-- Project 1 -->
   <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; text-align: center;">
-    <img src="{{ site.baseurl }}/assets/images/photo.jpg" alt="Project 1" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" />
+    <img src="{{ site.baseurl }}/assets/images/seg1.png" alt="Project 1" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" />
     <h3>Project 1</h3>
     <p>A brief description of what Project 1 is about. This could be a data analysis project, machine learning model, or any other interesting work you've done. You can also mention the key technologies used.</p>
     <a href="https://github.com/your-username/project1" target="_blank" style="text-decoration: none; color: #007bff;">View on GitHub</a>
