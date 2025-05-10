@@ -8,8 +8,8 @@ author_profile: true
 
 # Welcome to My Site!
 
-<div style="text-align: center;">
-  <img src="{{ site.baseurl }}/assets/images/photo2.jpg" alt="My Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;"/>
+<div style="text-align: center; margin-bottom: 20px;">
+  <img src="{{ site.baseurl }}/assets/images/photo3.jpg" alt="My Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;"/>
   <p>Hello and welcome to my personal website. I'm excited to share my projects and thoughts with you.</p>
   <p>Feel free to look around!</p>
 </div>
