@@ -8,30 +8,12 @@ author_profile: true
 
 # Welcome to My Site!
 
-author:
-  name   : "Jonathan Hansen"
-  avatar : "/assets/images/photo.jpg"
-  bio    : "Data Analytics and AI Enthusiast"
-  links:
-    # - label: "Website"
-    #   icon: "fas fa-fw fa-link"
-    #   url: "https://"
-    # - label: "Twitter"
-    #   icon: "fab fa-fw fa-twitter-square"
-    #   url: "https://twitter.com/"
-    - label: "LinkedIn"
-      icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/jonathan-hansen-a284b771/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/Jhansen19"
-    # - label: "Instagram"
-    #   icon: "fab fa-fw fa-instagram"
-    #   url: "https://instagram.com/"
+<img src="{{ site.baseurl }}/assets/images/photo.jpg" alt="My Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;"/>
 
 Hello and welcome to my personal website. I'm excited to share my projects and thoughts with you.
 
 Feel free to look around!
+
 
 
 
