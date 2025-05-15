@@ -35,7 +35,7 @@ title: "Projects"
 
   .project-card h3 {
     margin-top: 0;
-    margin-bottom: 16px;  /* ↑ add space between title and paragraph */
+    margin-bottom: 32px;  /* ↑ add space between title and paragraph */
   }
 
   .project-card p {
