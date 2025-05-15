@@ -7,12 +7,12 @@ Welcome to the Projects section of my website! Below, you'll find a showcase of 
 
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
 
-  <!-- Project 1 -->
+  <!-- UAV Disaster Damage Detection: Using Semantic Segmentation  -->
   <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; text-align: center;">
     <img src="{{ site.baseurl }}/assets/images/seg1.png" alt="Project 1" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" />
     <h3>Project 1</h3>
-    <p>A brief description of what Project 1 is about. This could be a data analysis project, machine learning model, or any other interesting work you've done. You can also mention the key technologies used.</p>
-    <a href="https://github.com/your-username/project1" target="_blank" style="text-decoration: none; color: #007bff;">View on GitHub</a>
+    <p>After natural disasters, a quick and accurate damage assessment is crucial for an effective response. The core problem our project seeks to address is how to provide a faster and reliable damage assessment of disaster areas. To achieve this goal, the project performed fine-tuning on a DeepLabV3 model with a natural disaster image dataset called RescueNet. The model achieved an IoU score of 50.6% after only 7 epochs of training. While not the level of performance the team was looking for, the model performed well given the limited computational resources.</p>
+    <a href="https://github.com/Jhansen19/DisasterRecoverySegmentation" target="_blank" style="text-decoration: none; color: #007bff;">View on GitHub</a>
   </div>
 
   <!-- Project 2 -->
