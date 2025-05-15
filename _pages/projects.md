@@ -5,7 +5,10 @@ title: "Projects"
 
 Welcome to the Projects section of my website! Below, you'll find a showcase of some of the projects I've been working on. Each project is linked to its GitHub repository, where you can explore the code, documentation, and additional details.
 
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+<div style="display: grid;
+            grid-template-columns: 1fr;
+            row-gap: 20px;">
+
 
   <!-- UAV Disaster Damage Detection: Using Semantic Segmentation  -->
   <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; text-align: center;">
