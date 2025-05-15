@@ -3,38 +3,91 @@ permalink: /projects/
 title: "Projects"
 ---
 
+<!--
+  Insert your page-specific CSS here. 
+  Jekyll will emit it into the <head> so your classes are defined.
+-->
+<style>
+.projects-page {
+  position: relative;
+  padding: 60px 20px;
+  background: url("/assets/images/your-bg.jpg") center/cover no-repeat;
+  color: #fff;
+}
+
+.projects-page::before {
+  content: "";
+  position: absolute;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.4);
+  z-index: 0;
+}
+
+.projects-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+  margin-top: 40px;
+}
+
+.project-card {
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.project-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.project-card h3 {
+  margin-top: 0;
+}
+
+.project-card a {
+  display: inline-block;
+  margin-top: 15px;
+  text-decoration: none;
+  color: #007bff;
+}
+</style>
+
 <div class="projects-page">
 
   <h1>Projects</h1>
-  <p>Welcome to the Projects section of my website! Below, you'll find a showcase of some of the projects I've been working on. Each project is linked to its GitHub repository, where you can explore the code, documentation, and additional details.</p>
+  <p>Welcome to the Projects section of my website! …</p>
 
   <div class="projects-grid">
-    <!-- Project 1 -->
     <div class="project-card">
-      <img src="{{ site.baseurl }}/assets/images/seg1.png" alt="Project 1 screenshot" />
-      <h3>UAV Disaster Damage Detection: Using Semantic Segmentation</h3>
-      <p>After natural disasters, a quick and accurate damage assessment is crucial for an effective response. The core problem our project seeks to address is how to provide a faster and reliable damage assessment of disaster areas. To achieve this goal, the project performed fine-tuning on a DeepLabV3 model with a natural disaster image dataset called RescueNet. The model achieved an IoU score of 50.6% after only 7 epochs of training. While not the level of performance the team was looking for, the model performed well given the limited computational resources.</p>
+      <img src="{{ site.baseurl }}/assets/images/seg1.png" alt="">
+      <h3>UAV Disaster Damage Detection</h3>
+      <p>After natural disasters…</p>
       <a href="https://github.com/Jhansen19/DisasterRecoverySegmentation" target="_blank">View on GitHub</a>
     </div>
 
-  <div class="projects-grid">
-    <!-- Project 2 -->
     <div class="project-card">
-      <img src="{{ site.baseurl }}/assets/images/photo.jpg" alt="Project 2 screenshot" />
+      <img src="{{ site.baseurl }}/assets/images/photo.jpg" alt="">
       <h3>Project 2</h3>
-      <p>A brief description of what Project 2 is about. Explain its goals, the problem it solves, and the technologies used. Add any other important details you want to showcase here.</p>
+      <p>A brief description…</p>
       <a href="https://github.com/your-username/project2" target="_blank">View on GitHub</a>
     </div>
 
-  <div class="projects-grid">
-    <!-- Project 3 -->
     <div class="project-card">
-      <img src="{{ site.baseurl }}/assets/images/photo.jpg" alt="Project 3 screenshot" />
+      <img src="{{ site.baseurl }}/assets/images/photo.jpg" alt="">
       <h3>Project 3</h3>
-      <p>This is the description for Project 3. You can add details about the project's goals, technologies, and why it's interesting. It might be a personal project or something you contributed to on GitHub.</p>
+      <p>This is the description…</p>
       <a href="https://github.com/your-username/project3" target="_blank">View on GitHub</a>
     </div>
   </div>
 
 </div>
-
