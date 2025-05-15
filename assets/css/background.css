@@ -13,7 +13,7 @@ html::before {
   filter: blur(10px) brightness(0.6);
   
   /* 3) scale it down slightly (zoom-out) */
-  transform: scale(0.60);
+  transform: scale(0.95);
   transform-origin: center;
   
   /* sit behind everything */
