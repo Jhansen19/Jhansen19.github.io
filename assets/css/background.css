@@ -1,5 +1,16 @@
-/* instead of body { … }… */
-.site-wrapper {
-  background: url("{{ site.background_image }}")
+/* assets/css/background.css */
+
+/* 1) the fixed background on the root */
+html {
+  background: url("{{ site.background_image }}") 
               center center / cover no-repeat fixed !important;
+}
+
+/* 2) kill every wrapper’s own background */
+body,
+.site-wrapper,
+.site-main,
+.site-footer,
+.site-header {
+  background-color: transparent !important;
 }
