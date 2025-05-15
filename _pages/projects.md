@@ -53,7 +53,6 @@ title: "Projects"
 </style>
 
 <div class="projects-page">
-  <h1>Projects</h1>
   <p>Welcome to the Projects section of my website! Below, you'll find a showcase of some of the projects I've been working on. Each project is linked to its GitHub repository, where you can explore the code, documentation, and additional details.</p>
 
   <div class="projects-grid">
