@@ -1,0 +1,6 @@
+/* assets/css/background.css */
+body {
+  /* use the config variable if you set it, otherwise hard-code the path */
+  background: url("{{ site.background_image | default: '/assets/images/background.jpg' }}")
+              center center / cover no-repeat fixed;
+}
