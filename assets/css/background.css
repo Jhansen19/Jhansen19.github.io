@@ -10,7 +10,7 @@ html::before {
   background: url("{{ site.background_image }}") center center / cover no-repeat fixed;
   
   /* 2) dim and blur it */
-  filter: blur(2px) brightness(0.6);
+  filter: blur(8px) brightness(0.4);
   
   /* 3) scale it down slightly (zoom-out) */
   transform: scale(1.00);
