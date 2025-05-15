@@ -4,8 +4,10 @@
 
 /* 1) the fixed background on the root */
 html {
-  background: url("{{ site.background_image | relative_url }}") /* Use relative_url for robustness */
+  background: url("{{ site.background_image | relative_url }}")
               center center / cover no-repeat fixed !important;
+  /* Optional: You can try adding this for good measure, though 'fixed' should handle viewport */
+  min-height: 100vh;
 }
 
 /* 2) kill every wrapper’s own background */
