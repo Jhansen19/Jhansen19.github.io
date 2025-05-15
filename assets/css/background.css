@@ -4,29 +4,23 @@
 
 /* 1) the fixed background on the root */
 html {
-  background: url("{{ site.background_image | relative_url }}")
-              center center / cover no-repeat fixed !important;
-  /* Optional: You can try adding this for good measure, though 'fixed' should handle viewport */
+  background-image: url("{{ site.background_image | relative_url }}") !important;
+  background-color: transparent !important; /* Explicitly set this */
+  background-attachment: fixed !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   min-height: 100vh;
 }
 
 /* 2) kill every wrapper’s own background */
 body,
-/* You'll need to verify these selectors with your theme (Minimal Mistakes) */
-/* Common Minimal Mistakes selectors include: */
-.initial-content, /* for some layouts */
-.page, /* Often has its own background */
-.page__inner-wrap, /* May have a background */
-#main, /* A common ID for the main content area */
-.minimal-mistakes__footer, /* Or similar for footer specific to theme */
-.masthead /* For the header/navigation area */
-{
-  background-color: transparent !important;
-  background-image: none !important; /* Also remove any theme-set background images */
-}
-
-/* Ensure the direct children of body or html that wrap content are also transparent if needed */
-/* Your original selectors - keep if they are relevant to your specific customizations or theme version */
+.initial-content,
+.page,
+.page__inner-wrap,
+#main,
+.minimal-mistakes__footer,
+.masthead,
 .site-wrapper,
 .site-main,
 .site-footer,
