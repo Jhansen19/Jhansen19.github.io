@@ -1,15 +1,9 @@
 {% if site.background_image %}
 <link rel="stylesheet" href="{{ '/assets/css/background.css' | relative_url }}">
 <style>
-  /* nuke the theme skin’s background */
-  body, 
-  .site-wrapper { 
-    background: transparent !important; 
-  }
-  /* put your fixed bg on the root element */
-  html {
-    background: url("{{ site.background_image }}") 
-                center center/cover no-repeat fixed !important;
+  /* make sure the default skin background is transparent */
+  body {
+    background: transparent !important;
   }
 </style>
 {% endif %}
