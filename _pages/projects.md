@@ -5,55 +5,58 @@ title: "Projects"
 
 <!-- page-specific tweaks – no background here -->
 <style>
-.project-card {
-  /* 1) semi-transparent dark background so you see the page BG behind */
-  background: rgba(0, 0, 0, 0.5);
-  /* 2) blur whatever is behind the card for that frosted-glass feel */
-  backdrop-filter: blur(8px);
-  /* 3) white border at 50% opacity */
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  /* 4) rounded corners & spacing */
-  border-radius: 12px;
-  padding: 40px;
-  /* 5) white text to stand out */
-  color: #fff;
-  /* optional: constrain card width and center it */
-  max-width: 800px;
-  margin: auto;
-}
-  
-.project-card img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  display: inline-block;
-}
-  
-.project-card h3 {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-  
-.project-card a {
-  /* make the link button white too */
-  display: inline-block;
-  margin-top: 15px;
-  padding: 8px 16px;
-  text-decoration: none;
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 8px;
-}
+  /* === Projects Grid (vertical stack with spacing) === */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 40px;   /* ↑ space between each project card */
+    margin: 40px auto; /* optional top/bottom margin, center grid */
+    max-width: 800px;
+  }
+
+  /* === Individual Project Cards (frosted-glass look) === */
+  .project-card {
+    background: rgba(0, 0, 0, 0.5);       /* semi-transparent dark */
+    backdrop-filter: blur(8px);           /* blur behind the card */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 40px;
+    color: #fff;
+  }
+
+  .project-card img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+
+  .project-card h3 {
+    margin-top: 0;
+    margin-bottom: 16px;  /* ↑ add space between title and paragraph */
+  }
+
+  .project-card p {
+    line-height: 1.5;
+  }
+
+  .project-card a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 8px;
+  }
 </style>
 
 <div class="projects-page">
-<!--
-<p>Welcome to the Projects section of my website! Below, you'll find a showcase of some of the projects I've been working on. Each project is linked to its GitHub repository, where you can explore the code, documentation, and additional details.</p>
--->
 
   <div class="projects-grid">
+
     <!-- Project 1 -->
     <div class="project-card">
       <img src="{{ site.baseurl }}/assets/images/seg1.png" alt="UAV Disaster Damage Detection screenshot" />
@@ -77,5 +80,8 @@ title: "Projects"
       <p>This is the description…</p>
       <a href="https://github.com/your-username/project3" target="_blank">View on GitHub</a>
     </div>
+
   </div>
+</div>
+
 </div>
