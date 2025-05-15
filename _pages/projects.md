@@ -84,4 +84,3 @@ title: "Projects"
   </div>
 </div>
 
-</div>
