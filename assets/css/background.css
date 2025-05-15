@@ -2,29 +2,29 @@
 ---
 /* assets/css/background.css */
 
-/* 1) the fixed background on the root */
-html {
-  background-image: url("{{ site.background_image | relative_url }}") !important;
-  background-color: transparent !important; /* Explicitly set this */
-  background-attachment: fixed !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  min-height: 100vh;
+/* 1) Create a fixed, full-screen backdrop */
+html::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("{{ site.background_image }}") center center / cover no-repeat fixed;
+  
+  /* 2) dim and blur it */
+  filter: blur(6px) brightness(0.6);
+  
+  /* 3) scale it down slightly (zoom-out) */
+  transform: scale(0.95);
+  transform-origin: center;
+  
+  /* sit behind everything */
+  z-index: -1;
 }
 
-/* 2) kill every wrapper’s own background */
+/* 4) Let your theme’s wrappers stay transparent */
 body,
-.initial-content,
-.page,
-.page__inner-wrap,
-#main,
-.minimal-mistakes__footer,
-.masthead,
 .site-wrapper,
 .site-main,
-.site-footer,
-.site-header {
+.site-header,
+.site-footer {
   background-color: transparent !important;
-  background-image: none !important;
 }
