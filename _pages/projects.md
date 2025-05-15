@@ -8,20 +8,15 @@ title: "Projects"
 .project-card {
   /* 1) semi-transparent dark background so you see the page BG behind */
   background: rgba(0, 0, 0, 0.5);
-
   /* 2) blur whatever is behind the card for that frosted-glass feel */
   backdrop-filter: blur(8px);
-
   /* 3) white border at 50% opacity */
   border: 1px solid rgba(255, 255, 255, 0.5);
-
   /* 4) rounded corners & spacing */
   border-radius: 12px;
-  padding: 20px;
-
+  padding: 40px;
   /* 5) white text to stand out */
   color: #fff;
-
   /* optional: constrain card width and center it */
   max-width: 800px;
   margin: auto;
@@ -38,6 +33,7 @@ title: "Projects"
   
 .project-card h3 {
   margin-top: 0;
+  margin-bottom: 16px;
 }
   
 .project-card a {
