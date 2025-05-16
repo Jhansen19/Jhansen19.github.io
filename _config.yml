@@ -60,7 +60,7 @@ plugins:
 author:
   name   : "Jonathan Hansen"
   avatar : "/assets/images/photo2.jpg"
-  bio    : "Data Analytics and AI Enthusiast"
+  bio    : "Data Storyteller | ML Practitioner | AI Explorer"
   links:
     # - label: "Website"
     #   icon: "fas fa-fw fa-link"
@@ -80,16 +80,19 @@ author:
 
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
+    # - label: "Twitter"
+    #   icon: "fab fa-fw fa-twitter-square"
+    #   url: "https://twitter.com/"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/jonathan-hansen-a284b771/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
-    - label: "Designed by GarryKillian / Freepik"
+      url: "https://github.com/Jhansen19"
+    # - label: "Instagram"
+    #   icon: "fab fa-fw fa-instagram"
+    #   url: "https://instagram.com/"
+    - label: "Background Design by GarryKillian / Freepik"
       icon: ""                              # no icon, or pick one you like
       url: "http://www.freepik.com"
 
