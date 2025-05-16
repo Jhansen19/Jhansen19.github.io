@@ -89,6 +89,10 @@ footer:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/"
+    - label: "Designed by GarryKillian / Freepik"
+      icon: ""                              # no icon, or pick one you like
+      url: "http://www.freepik.com"
+
 
 defaults:
   # _posts
