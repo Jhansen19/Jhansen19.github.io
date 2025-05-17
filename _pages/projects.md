@@ -58,8 +58,8 @@ title: "Projects"
 
     <!-- Project 1 -->
     <div class="project-card">
-      <img src="{{ site.baseurl }}/assets/images/segphoto.jpg" alt="UAV Disaster Damage Detection screenshot" />
       <h3>UAV Disaster Damage Detection</h3>
+      <img src="{{ site.baseurl }}/assets/images/segphoto.jpg" alt="UAV Disaster Damage Detection screenshot" />
       <p>After natural disasters, a quick and accurate damage assessment is crucial for an effective response. The core problem our project seeks to address is how to provide a faster and reliable damage assessment of disaster areas. To achieve this goal, the project performed fine-tuning on a DeepLabV3 model with a natural disaster image dataset called RescueNet. The model achieved an IoU score of 50.6% after only 7 epochs of training. While not the level of performance the team was looking for, the model performed well given the limited computational resources.</p>
       <a href="https://github.com/Jhansen19/DisasterRecoverySegmentation/tree/main" target="_blank">
         <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
@@ -69,8 +69,8 @@ title: "Projects"
 
     <!-- Project 2 -->
     <div class="project-card">
-      <img src="{{ site.baseurl }}/assets/images/HousingPred.jpg" alt="Project 2 screenshot" />
       <h3>Deep Learning Housing Price Prediction: Using SOM and ANN</h3>
+      <img src="{{ site.baseurl }}/assets/images/HousingPred.jpg" alt="Project 2 screenshot" />
       <p>A Python-based project that predicts Boston-area home values by first using Deep Learning (SOM and ANN) to automatically group similar neighborhoods, then feeding those groupings into a neural network for price forecasting. Built with tools (pandas, scikit-learn, MiniSom and TensorFlow), it delivers strong accuracy which explains over 80% of the variation in sale prices while showcasing how unsupervised clustering can bolster deep learning models.</p>
       <a href="https://github.com/Jhansen19/Housing_Pred_AnnSOM/tree/main" target="_blank">
         <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
