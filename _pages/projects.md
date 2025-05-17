@@ -94,7 +94,7 @@ title: "Projects"
     
     <!-- Project 3 -->
     <div class="project-card">
-      <div class="date">Jun 2025</div>
+      <div class="date">Dec 2024</div>
       <h3>US Freight Rail Risk Analysis: Indiana Accident Prediction</h3>
       <img src="{{ site.baseurl }}/assets/images/accidentpred.jpg" alt="US Freight Rail Risk Analysis screenshot" />
       <p>Integrated train volume, historical accident, commodity hazard, and community vulnerability data to predict accident risk on Indiana rail segments. Generated an interactive Folium map highlighting high-risk corridors—especially those carrying hazardous goods through vulnerable communities—for state safety planning.</p>
@@ -106,7 +106,7 @@ title: "Projects"
     
     <!-- Project 4 -->
     <div class="project-card">
-      <div class="date">Feb 2025</div>
+      <div class="date">Nov 2024</div>
       <h3>Airline Prediction: Azure Data Lake Pipeline</h3>
       <img src="{{ site.baseurl }}/assets/images/AzurePipe.jpg" alt="Airline Prediction screenshot" />
       <p>Built an end-to-end ELT pipeline in Azure that ingests raw CSVs from the Bureau of Transportation Statistics into Data Lake Storage Gen2, cleans and transforms them with Azure Data Factory and Spark, and publishes ready-to-use silver and gold tables for machine learning. I configured resource groups, integration runtimes, Data Factory pipelines, and Key Vault–secured credentials, while leveraging geo-redundant storage and a medallion architecture to ensure scalability, reliability, and cost efficiency. This project demonstrates my ability to design and deploy robust cloud data pipelines that handle big data at scale.</p>
