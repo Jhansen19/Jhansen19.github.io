@@ -3,18 +3,18 @@ permalink: /about/
 title: "About"
 ---
 
-Jonathan Hansen is a data scientist and machine learning engineer with a passion for turning complex data into actionable insights. He holds an M.S. in Data Science from Indiana University (May 2025) and brings a unique blend of hands-on technical expertise and real-world business acumen, honed through years in operations management and supply chain planning.
+Driven by curiosity and strategic vision, Jonathan transforms complex data into clear, actionable insights that fuel impactful decision-making. With an M.S. in Data Science from Indiana University (May 2025), he combines hands-on technical expertise with real-world business acumen developed through years in operations management and supply-chain planning.
 
-Throughout his career, he has:
+Core competencies
 
-Bridged theory and practice, designing end-to-end modern data pipelines on Azure, from raw ingestion to polished OLAP cubes in Power BI.
+Technical toolkit: Python, SQL, R, pandas, matplotlib, scikit-learn, PyTorch, GeoPandas, Folium
 
-Engineered computer vision solutions, fine-tuning semantic segmentation models (DeepLabV3, UNet variants) on post-disaster UAV imagery to estimate reconstruction costs.
+Additional tools: Excel, MS Office Suite, Power BI, Jira, GitHub
 
-Optimized pricing strategies, building predictive models and clustering frameworks to help clients such as OpinionRoute balance bid-win rates and profitability.
+Cloud and database platforms: Azure, MySQL
 
-Now based in Copenhagen, Jon specializes in Python, SQL, DuckDB, and cloud platforms (Azure, Databricks). He’s equally comfortable writing scalable ETL code as he is tuning deep learning architectures in PyTorch and TensorFlow. A lifelong learner, he’s currently exploring geospatial analytics, sharpening his Danish, and contributing to open-source projects.
+Professional strengths: strategic planning, data storytelling, empathetic leadership, project management
 
-Outside of work, Jon cherishes family adventures with his wife (a behavior analyst) and their two young children and loves hunting down new coffee spots.
+Supply-chain and operations expertise: demand planning, warehouse optimization, reverse logistics, just-in-time manufacturing
 
-Connect with Jon to discuss AI innovation, data-driven strategy, or life in Denmark.
+Passionate about building intelligent systems that learn from data, adapt to new challenges, and empower decision makers at scale, Jonathan thrives in collaborative environments and tackles problems proactively. Outside of work he enjoys hiking, playing board games with his two young children, discovering new coffee spots, and learning new languages. Feel free to connect to discuss AI-driven strategy, big-data pipelines, or machine-learning challenges.
