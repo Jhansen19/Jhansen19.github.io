@@ -83,7 +83,7 @@ title: "Projects"
       <h3>Airline Prediction: Azure Data Lake Pipeline</h3>
       <img src="{{ site.baseurl }}/assets/images/AzurePipe.jpg" alt="Project 3 screenshot" />
       <p>Built an end-to-end ELT pipeline in Azure that ingests raw CSVs from the Bureau of Transportation Statistics into Data Lake Storage Gen2, cleans and transforms them with Azure Data Factory and Spark, and publishes ready-to-use silver and gold tables for machine learning. I configured resource groups, integration runtimes, Data Factory pipelines, and Key Vault–secured credentials, while leveraging geo-redundant storage and a medallion architecture to ensure scalability, reliability, and cost efficiency. This project demonstrates my ability to design and deploy robust cloud data pipelines that handle big data at scale.</p>
-      <a href="https://github.com/your-username/project3" target="_blank">
+      <a href="https://github.com/Jhansen19/Airline_Predictions" target="_blank">
         <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
         View on GitHub
       </a>
