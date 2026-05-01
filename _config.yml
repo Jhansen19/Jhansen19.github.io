@@ -13,17 +13,18 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Jonathan Hansen Portfolio
+title: Jonathan Hansen
 email: jnthnhansen@gmail.com
-background_image: "/assets/images/background4.jpg"
+background_image: "/assets/images/backgroundphoto.png"
+profile_image: "/assets/images/headshot2.png"
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Professional profile for Jonathan Hansen, a data science and supply chain
+  practitioner who builds clear analytics, machine learning, and cloud solutions
+  for better decisions.
 twitter_username: username
-github_username: username
-minimal_mistakes_skin: neon #"default" # "air", "aqua", "contrast", "dirt", "neon", "mint", "plum", "sunrise"
-search: true
+github_username: Jhansen19
+minimal_mistakes_skin: air #"default" # "air", "aqua", "contrast", "dirt", "neon", "mint", "plum", "sunrise"
+search: false
 
 # Build settings
 markdown: kramdown
@@ -59,8 +60,8 @@ plugins:
 
 author:
   name   : "Jonathan Hansen"
-  avatar : "/assets/images/photo2.jpg"
-  bio    : "Data Storyteller | ML Practitioner | AI Explorer"
+  avatar : "/assets/images/headshot2.png"
+  bio    : "Data science and supply chain professional"
   links:
     # - label: "Website"
     #   icon: "fas fa-fw fa-link"
@@ -89,6 +90,9 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Jhansen19"
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:jnthnhansen@gmail.com"
     # - label: "Instagram"
     #   icon: "fab fa-fw fa-instagram"
     #   url: "https://instagram.com/"
@@ -115,7 +119,7 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
+      author_profile: false
 
 category_archive:
   type: liquid

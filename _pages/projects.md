@@ -1,122 +1,125 @@
 ---
 permalink: /projects/
 title: "Projects"
+classes: wide
 ---
 
-<!-- page-specific tweaks – no background here -->
-<style>
-  /* === Projects Grid (vertical stack with spacing) === */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 40px;   /* ↑ space between each project card */
-    margin: 40px auto; /* optional top/bottom margin, center grid */
-    max-width: 800px;
-  }
+<div class="profile-shell">
+  <section class="section-card glass-panel project-hero">
+    <div class="section-label">Project portfolio</div>
+    <h2>Data science work explained through the decision it supports</h2>
+    <p>
+      My projects are not just tool demonstrations. They show how I define a practical question, structure messy data, choose a method that fits, and communicate the result so someone can act.
+    </p>
+  </section>
 
-  /* === Individual Project Cards (frosted-glass look) === */
-  .project-card {
-    position: relative;                  /* for absolutely-positioned date */
-    background: rgba(0, 0, 0, 0.5);      /* semi-transparent dark */
-    backdrop-filter: blur(8px);          /* blur behind the card */
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    padding: 40px;
-    color: #fff;
-  }
+  <div class="project-grid">
+    <article class="project-card impact-card">
+      <img src="{{ site.baseurl }}/assets/images/segphoto.jpg" alt="Computer vision project preview">
+      <div class="small-meta">May 2025</div>
+      <h3>UAV damage detection with computer vision</h3>
+      <div class="project-value">
+        <span>Decision value</span>
+        <p>Help response teams review disaster imagery faster so field attention can move toward damaged areas sooner.</p>
+      </div>
+      <div class="project-copy">
+        <div class="project-copy-block">
+          <div class="project-label">Operational question</div>
+          <p>Disaster response teams need a faster way to understand damage across large areas. Manual review can take too long when speed matters.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Technical path</div>
+          <p>I fine tuned a DeepLabV3 segmentation model on RescueNet imagery so damaged regions could be identified more quickly from aerial views. The model reached an IoU score of 50.6 percent in seven training epochs.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Methods</div>
+          <p>Python, PyTorch, image segmentation, model evaluation</p>
+        </div>
+      </div>
+      <div class="link-row">
+        <a class="site-button site-button--ghost" href="https://github.com/Jhansen19/DisasterRecoverySegmentation/tree/main" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+      </div>
+    </article>
 
-  /* Date in the top-right corner */
-  .project-card .date {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    font-size: 0.85em;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-  }
+    <article class="project-card impact-card">
+      <img src="{{ site.baseurl }}/assets/images/HousingPred.jpg" alt="Housing prediction project preview">
+      <div class="small-meta">March 2025</div>
+      <h3>Housing value prediction with clustering and neural networks</h3>
+      <div class="project-value">
+        <span>Decision value</span>
+        <p>Improve forecasting by capturing neighborhood patterns that a simpler model may miss.</p>
+      </div>
+      <div class="project-copy">
+        <div class="project-copy-block">
+          <div class="project-label">Analytical question</div>
+          <p>Home values depend on many connected neighborhood features. The challenge was to improve prediction quality while capturing hidden structure in the data.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Technical path</div>
+          <p>I used self organizing maps to group similar neighborhoods, then passed those groupings into an artificial neural network for forecasting. The final model explained more than 80 percent of the variation in sale prices.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Methods</div>
+          <p>Python, pandas, scikit learn, MiniSom, TensorFlow</p>
+        </div>
+      </div>
+      <div class="link-row">
+        <a class="site-button site-button--ghost" href="https://github.com/Jhansen19/Housing_Pred_AnnSOM/tree/main" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+      </div>
+    </article>
 
-  .project-card img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: inline-block;
-  }
+    <article class="project-card impact-card">
+      <img src="{{ site.baseurl }}/assets/images/accidentpred.jpg" alt="Rail risk analysis project preview">
+      <div class="small-meta">December 2024</div>
+      <h3>Freight rail risk analysis for Indiana</h3>
+      <div class="project-value">
+        <span>Decision value</span>
+        <p>Give planners a clearer view of where hazardous rail movement and community vulnerability overlap.</p>
+      </div>
+      <div class="project-copy">
+        <div class="project-copy-block">
+          <div class="project-label">Planning question</div>
+          <p>Rail safety planning is stronger when agencies can see where freight activity, past incidents, hazardous materials, and community vulnerability overlap.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Technical path</div>
+          <p>I combined accident records, traffic volume, commodity hazard, and community data to estimate risk by rail segment. The result was an interactive map that highlighted corridors where safety attention could have the greatest value.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Methods</div>
+          <p>Python, geospatial analysis, Folium, risk modeling</p>
+        </div>
+      </div>
+      <div class="link-row">
+        <a class="site-button site-button--ghost" href="https://github.com/Jhansen19/Rail_Accident_Predictions" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+      </div>
+    </article>
 
-  .project-card h3 {
-    margin-top: 0;
-    margin-bottom: 32px;  /* ↑ add space between title and paragraph */
-  }
-
-  .project-card p {
-    line-height: 1.5;
-  }
-
-  .project-card a {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 8px 16px;
-    text-decoration: none;
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 8px;
-  }
-</style>
-
-
-<div class="projects-page">
-  <div class="projects-grid">
-
-    <!-- Project 1 -->
-    <div class="project-card">
-      <div class="date">May 2025</div>
-      <h3>UAV Disaster Damage Detection: Computer Vision Segmentation</h3>
-      <img src="{{ site.baseurl }}/assets/images/segphoto.jpg" alt="UAV Disaster Damage Detection screenshot" />
-      <p>After natural disasters, a quick and accurate damage assessment is crucial for an effective response. The core problem our project seeks to address is how to provide a faster and reliable damage assessment of disaster areas. To achieve this goal, the project performed fine-tuning on a DeepLabV3 model with a natural disaster image dataset called RescueNet. The model achieved an IoU score of 50.6% after only 7 epochs of training. While not the level of performance the team was looking for, the model performed well given the limited computational resources.</p>
-      <a href="https://github.com/Jhansen19/DisasterRecoverySegmentation/tree/main" target="_blank">
-        <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
-        View on GitHub
-      </a>
-    </div>
-    
-    <!-- Project 2 -->
-    <div class="project-card">
-      <div class="date">Mar 2025</div>
-      <h3>Housing Price Prediction: Using DL Models SOM and ANN</h3>
-      <img src="{{ site.baseurl }}/assets/images/HousingPred.jpg" alt="Housing Price Prediction screenshot" />
-      <p>A Python-based project that predicts Boston-area home values by first using Deep Learning (SOM and ANN) to automatically group similar neighborhoods, then feeding those groupings into a neural network for price forecasting. Built with tools (pandas, scikit-learn, MiniSom and TensorFlow), it delivers strong accuracy which explains over 80% of the variation in sale prices while showcasing how unsupervised clustering can bolster deep learning models.</p>
-      <a href="https://github.com/Jhansen19/Housing_Pred_AnnSOM/tree/main" target="_blank">
-        <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
-        View on GitHub
-      </a>
-    </div>
-    
-    <!-- Project 3 -->
-    <div class="project-card">
-      <div class="date">Dec 2024</div>
-      <h3>US Freight Rail Risk Analysis: Indiana Accident Prediction</h3>
-      <img src="{{ site.baseurl }}/assets/images/accidentpred.jpg" alt="US Freight Rail Risk Analysis screenshot" />
-      <p>Integrated train volume, historical accident, commodity hazard, and community vulnerability data to predict accident risk on Indiana rail segments. Generated an interactive Folium map highlighting high-risk corridors—especially those carrying hazardous goods through vulnerable communities—for state safety planning.</p>
-      <a href="https://github.com/Jhansen19/Rail_Accident_Predictions" target="_blank">
-        <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
-        View on GitHub
-      </a>
-    </div>
-    
-    <!-- Project 4 -->
-    <div class="project-card">
-      <div class="date">Nov 2024</div>
-      <h3>Airline Prediction: Azure Data Lake Pipeline</h3>
-      <img src="{{ site.baseurl }}/assets/images/AzurePipe.jpg" alt="Airline Prediction screenshot" />
-      <p>Built an end-to-end ELT pipeline in Azure that ingests raw CSVs from the Bureau of Transportation Statistics into Data Lake Storage Gen2, cleans and transforms them with Azure Data Factory and Spark, and publishes ready-to-use silver and gold tables for machine learning. I configured resource groups, integration runtimes, Data Factory pipelines, and Key Vault–secured credentials, while leveraging geo-redundant storage and a medallion architecture to ensure scalability, reliability, and cost efficiency. This project demonstrates my ability to design and deploy robust cloud data pipelines that handle big data at scale.</p>
-      <a href="https://github.com/Jhansen19/Airline_Predictions" target="_blank">
-        <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
-        View on GitHub
-      </a>
-    </div>
-
+    <article class="project-card impact-card">
+      <img src="{{ site.baseurl }}/assets/images/AzurePipe.jpg" alt="Azure data pipeline project preview">
+      <div class="small-meta">November 2024</div>
+      <h3>Azure pipeline for airline data</h3>
+      <div class="project-value">
+        <span>Decision value</span>
+        <p>Create trusted data layers so analytics and machine learning can start from cleaner, more reliable inputs.</p>
+      </div>
+      <div class="project-copy">
+        <div class="project-copy-block">
+          <div class="project-label">Operating question</div>
+          <p>Large transportation datasets are difficult to use when the data arrives in raw files and analysts need reliable tables for reporting and modeling.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Technical path</div>
+          <p>I built an end to end ELT workflow in Azure that ingested raw CSV files into Data Lake Storage Gen2, transformed them with Data Factory and Spark, and published silver and gold layers for machine learning use.</p>
+        </div>
+        <div class="project-copy-block">
+          <div class="project-label">Methods</div>
+          <p>Azure Data Factory, Spark, Data Lake Storage Gen2, Key Vault, medallion architecture</p>
+        </div>
+      </div>
+      <div class="link-row">
+        <a class="site-button site-button--ghost" href="https://github.com/Jhansen19/Airline_Predictions" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+      </div>
+    </article>
   </div>
 </div>
-
-
