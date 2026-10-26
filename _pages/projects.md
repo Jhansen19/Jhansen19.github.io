@@ -68,6 +68,18 @@ title: "Projects"
 <div class="projects-page">
   <div class="projects-grid">
 
+    <!-- Portfolio intelligence work sample -->
+    <div class="project-card">
+      <div class="date">Oct 2026</div>
+      <h3>European LoE Opportunity Pipeline: Pharma Portfolio Intelligence</h3>
+      <img src="{{ site.baseurl }}/assets/images/portfolio-pipeline.jpg" alt="Prioritisation matrix from the LoE opportunity pipeline" />
+      <p>An interactive work sample showing how I turn market intelligence into a prioritised, decision-ready portfolio pipeline. Eight small-molecule loss-of-exclusivity opportunities are scored from a dummy dataset on market attractiveness, commercial potential, strategic fit, timing, risk and competition. Strategy presets and live weight sliders show how the ranking shifts with business priorities, and every score can be traced from raw inputs through the scoring rules to the final recommendation.</p>
+      <a href="{{ site.baseurl }}/portfolio-pipeline/">
+        <i class="fas fa-chart-line" aria-hidden="true" style="margin-right:8px;"></i>
+        Open the live pipeline
+      </a>
+    </div>
+
     <!-- Project 1 -->
     <div class="project-card">
       <div class="date">May 2025</div>

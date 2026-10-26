@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>European LoE Opportunity Pipeline</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+  /* Layout: decision summary first, then the interactive weighting + matrix, the ranked pipeline, timing/value, risks, and the full data & logic underneath. */
+  :root{
+    --bg:#f5f7f7; --surface:#ffffff; --surface-2:#edf2f2; --ink:#15202a; --muted:#5a6870; --line:#dde5e5;
+    --navy:#0B2545; --accent:#134E5E; --accent-2:#0E8384; --heat:#1b8a92;
+    --v-pri:#0E6B73; --v-pur:#5BAAB0; --v-mon:#C98A1E; --v-dec:#A3ADB2;
+    --crit:#b23b3b; --warn:#b06a10; --ok:#2f7d5d;
+    --sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0c1417; --surface:#111c21; --surface-2:#17262c; --ink:#e6edef; --muted:#95a7ad; --line:#24333a;
+    --navy:#c3d6ee; --accent:#45b0b6; --accent-2:#52bcc1; --heat:#3fb0b7;
+    --v-pri:#5ccdd2; --v-pur:#2f8a91; --v-mon:#e0a645; --v-dec:#66757b;
+    --crit:#e07a7a; --warn:#d99a3c; --ok:#5cb58f; color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0c1417; --surface:#111c21; --surface-2:#17262c; --ink:#e6edef; --muted:#95a7ad; --line:#24333a;
+    --navy:#c3d6ee; --accent:#45b0b6; --accent-2:#52bcc1; --heat:#3fb0b7;
+    --v-pri:#5ccdd2; --v-pur:#2f8a91; --v-mon:#e0a645; --v-dec:#66757b;
+    --crit:#e07a7a; --warn:#d99a3c; --ok:#5cb58f; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+  h1,h2,h3{margin:0;text-wrap:balance}
+  p{margin:0 0 10px}
+  .mono{font-family:var(--mono)} .tnum{font-variant-numeric:tabular-nums}
+  .eyebrow{font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2)}
+  .muted{color:var(--muted)}
+
+  .mast{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start;border-bottom:2px solid var(--accent);padding-bottom:16px}
+  .mast h1{font-size:28px;font-weight:700;letter-spacing:-.01em;color:var(--navy);margin-top:6px}
+  .mast .sub{color:var(--muted);font-size:14px;margin-top:8px;max-width:66ch}
+  .by{font-size:12px;color:var(--muted);text-align:right;min-width:0}
+  .by strong{color:var(--ink)}
+  .badge{display:inline-block;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--warn);border:1px solid var(--warn);border-radius:999px;padding:2px 9px}
+
+  section{margin-top:28px}
+  .sec-h{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+  .sec-h .num{font-family:var(--mono);font-size:12.5px;color:var(--accent-2);font-weight:600}
+  .sec-h h2{font-size:16px;font-weight:600}
+  .sec-h .rule{flex:1;height:1px;background:var(--line)}
+  .sec-h .hint{font-size:12px;color:var(--muted)}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+  .panel h3{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px;font-weight:600}
+
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 15px;min-width:0}
+  .tile .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .tile .v{font-size:clamp(16px,4.2vw,20px);font-weight:600;color:var(--navy);margin-top:4px;line-height:1.2}
+  .tile .v.mono{white-space:nowrap;letter-spacing:-.02em}
+  .tile .s{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .read{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:14px}
+  .read b{color:var(--navy)}
+
+  .grid-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:16px}
+  .grid-eq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+
+  .presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .presets button{font:inherit;font-size:12.5px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);cursor:pointer}
+  .presets button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+  .presets button:focus-visible,select:focus-visible,input:focus-visible,.copy:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+  .wrow{display:grid;grid-template-columns:minmax(0,1fr) 92px 44px;align-items:center;gap:10px;padding:5px 0}
+  .wrow label{font-size:13px}
+  .wrow input{width:100%;accent-color:var(--accent)}
+  .wrow output{font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--navy)}
+  .wnote{font-size:12px;color:var(--muted);margin-top:8px}
+
+  .chart{width:100%;height:auto;display:block}
+  .chart text{font-family:var(--sans);fill:var(--muted);font-size:11px}
+  .chart .lab{fill:var(--ink);font-size:11.5px;font-weight:500}
+  .chart .ax{stroke:var(--line);stroke-width:1}
+  .chart .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4}
+  .chart .q{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;fill:var(--muted)}
+  .chart .now{stroke:var(--crit);stroke-width:1.5;stroke-dasharray:4 3}
+  .chart .nowt{fill:var(--crit);font-size:10.5px}
+  .v-Prioritise{fill:var(--v-pri)} .v-Pursue{fill:var(--v-pur)} .v-Monitor{fill:var(--v-mon)} .v-Decline{fill:var(--v-dec)}
+  .ring{stroke:var(--surface);stroke-width:2}
+  .rng{fill:var(--accent)} .mid{fill:var(--navy)}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);margin-top:8px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .d-Prioritise{background:var(--v-pri)} .d-Pursue{background:var(--v-pur)} .d-Monitor{background:var(--v-mon)} .d-Decline{background:var(--v-dec)}
+
+  .tbl-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle;white-space:nowrap}
+  th{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--surface-2)}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  td.c,th.c{text-align:center}
+  tr:last-child td{border-bottom:none}
+  .mol b{color:var(--ink)} .mol small{display:block;color:var(--muted);font-size:11.5px}
+  .sc{display:inline-block;min-width:26px;padding:2px 0;border-radius:4px;font-family:var(--mono);font-size:12.5px;text-align:center;color:var(--ink)}
+  .tot{font-family:var(--mono);font-weight:600;color:var(--navy);font-size:14px}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:2px 9px 2px 7px;background:var(--surface)}
+  .delta{font-family:var(--mono);font-size:12px}
+  .up{color:var(--ok)} .down{color:var(--crit)} .flat{color:var(--muted)}
+  .chg{font-size:10.5px;color:var(--warn);font-weight:600;display:block}
+
+  .risks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .rk h4{margin:0 0 8px;font-size:14px;color:var(--navy);display:flex;justify-content:space-between;gap:8px}
+  .rk h4 .mono{font-size:12.5px;color:var(--muted)}
+  .ri{display:flex;gap:9px;padding:7px 0;border-top:1px solid var(--line);font-size:12.5px}
+  .sev{flex:none;font-size:10px;font-weight:700;letter-spacing:.05em;border-radius:999px;padding:1px 7px;height:fit-content;border:1px solid}
+  .sev.H{color:var(--crit);border-color:var(--crit)} .sev.M{color:var(--warn);border-color:var(--warn)} .sev.L{color:var(--ok);border-color:var(--ok)}
+
+  .rules td{white-space:normal;vertical-align:top}
+  .rules td:first-child{font-weight:600;color:var(--navy);white-space:nowrap}
+  .drill-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+  select{font:inherit;font-size:13.5px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+  .calc td{white-space:normal}
+  .calc .f{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .calc tfoot td{font-weight:600;background:var(--surface-2)}
+  .rev{margin-top:12px;font-size:13px;background:var(--surface-2);border-radius:8px;padding:10px 12px}
+  .rev .mono{font-size:12.5px}
+  .copy{font:inherit;font-size:12.5px;padding:5px 11px;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+  .src td{white-space:normal;vertical-align:top}
+  .src td:first-child{font-weight:600;color:var(--navy);white-space:nowrap}
+
+  #tip{position:fixed;pointer-events:none;z-index:20;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,.12);max-width:240px}
+  #tip b{color:var(--navy)}
+
+  footer{margin-top:32px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted)}
+  footer strong{color:var(--ink)}
+
+  @media (max-width:860px){
+    .grid-2,.grid-eq{grid-template-columns:1fr}
+    .tiles{grid-template-columns:repeat(2,1fr)}
+    .risks{grid-template-columns:1fr}
+    .by{text-align:left}
+  }
+  @media (prefers-reduced-motion:no-preference){ .chart circle,.chart rect{transition:all .25s ease} }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div>
+      <span class="eyebrow">Portfolio Intelligence · Work sample</span>
+      <h1>European LoE Opportunity Pipeline</h1>
+      <p class="sub">Eight small-molecule loss-of-exclusivity opportunities, assessed on market, commercial potential, strategic fit, pipeline timing, risk and competition, then ranked into a decision-ready pipeline. Change the weights to see how the priorities move; open any molecule to trace the calculation.</p>
+      <span class="badge">Dummy data · for method demonstration</span>
+    </div>
+    <div class="by">
+      <strong>Jonathan Hansen</strong><br>
+      Portfolio intelligence work sample<br>
+      <span class="mono">October 2026</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-h"><span class="num">01</span><h2>Decision summary</h2><span class="rule"></span><span class="hint">updates with the weights</span></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="read"><b>Analyst's read (base weights).</b> Empagliflozin leads on balance: a large, growing pool with the entry window still ahead, which leaves time to prepare. Apixaban is the biggest prize but the most contested and still in litigation, so it advances only behind an SPC-clearance gate. Edoxaban is the winnable niche: a smaller pool, few expected entrants and a clean fit. All of the top five sit in cardiovascular or cardiometabolic care, so the portfolio question is concentration: sequencing launches across 2027 to 2030 spreads capacity, but not therapy-area risk.</div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="num">02</span><h2>Weighting and prioritisation</h2><span class="rule"></span></div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>Criterion weights</h3>
+        <div class="presets" id="presets" role="group" aria-label="Weight presets"></div>
+        <div id="weights"></div>
+        <p class="wnote">Weights are normalised to 100%. Presets reflect different strategic postures; the gap between them is the sensitivity of the recommendation.</p>
+      </div>
+      <div class="panel">
+        <h3>Prioritisation matrix</h3>
+        <svg class="chart" id="matrix" viewBox="0 0 540 420" role="img" aria-label="Prioritisation matrix: market attractiveness against ability to win, bubble size is EU originator sales"></svg>
+        <div class="legend" id="legend1"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="num">03</span><h2>Ranked opportunity pipeline</h2><span class="rule"></span><span class="hint">scores 1–5, calculated from the dataset</span></div>
+    <div class="tbl-wrap">
+      <table id="rank">
+        <thead><tr>
+          <th class="n">#</th><th>Molecule</th><th>LoE window</th><th class="n">EU sales</th>
+          <th class="c" title="Market attractiveness">Mkt</th><th class="c" title="Commercial potential">Com</th><th class="c" title="Strategic fit">Fit</th><th class="c" title="Pipeline &amp; timing">Time</th><th class="c" title="Risk (inverse)">Risk</th><th class="c" title="Competition (inverse)">Comp</th>
+          <th class="n">Score</th><th class="n">vs base</th><th>Verdict</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="wnote">Bands: Prioritise ≥ 4.0 · Pursue 3.0–3.99 · Monitor 2.0–2.99 · Decline &lt; 2.0. Risk and competition are scored inversely (5 = low risk / few entrants).</p>
+  </section>
+
+  <section>
+    <div class="grid-eq">
+      <div class="panel">
+        <h3>Entry windows (national LoE spread)</h3>
+        <svg class="chart" id="timeline" viewBox="0 0 540 330" role="img" aria-label="Timeline of loss-of-exclusivity windows by molecule"></svg>
+      </div>
+      <div class="panel">
+        <h3>Indicative annual revenue to entrant (€m)</h3>
+        <svg class="chart" id="revenue" viewBox="0 0 540 330" role="img" aria-label="Indicative revenue range per molecule"></svg>
+        <p class="wnote">Midpoint = EU sales × (1 − price erosion) × attainable share; range = midpoint × 0.6 to × 1.4.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="num">04</span><h2>Risk register: current top three</h2><span class="rule"></span></div>
+    <div class="risks" id="risks"></div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="num">05</span><h2>Data &amp; logic</h2><span class="rule"></span><span class="hint">how every score is produced</span></div>
+
+    <div class="panel">
+      <h3>Trace a calculation</h3>
+      <div class="drill-head">
+        <label for="drill" class="muted" style="font-size:13px">Molecule</label>
+        <select id="drill"></select>
+        <span class="muted" style="font-size:12.5px">Uses the current weights.</span>
+      </div>
+      <div class="tbl-wrap"><table class="calc" id="calc"></table></div>
+      <div class="rev" id="revcalc"></div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>Scoring rules</h3>
+      <div class="tbl-wrap">
+        <table class="rules">
+          <thead><tr><th>Criterion</th><th>Inputs</th><th>Rule (1–5)</th></tr></thead>
+          <tbody>
+            <tr><td>Market attractiveness</td><td>EU sales, market growth</td><td>Sales ≥ €2,500m = 5, ≥ 1,500 = 4, ≥ 800 = 3, ≥ 400 = 2, else 1; +1 if growth ≥ 8%, −1 if growth &lt; 0; capped 1–5.</td></tr>
+            <tr><td>Commercial potential</td><td>EU sales, price erosion, attainable share</td><td>Midpoint revenue = sales × (1 − erosion) × share. ≥ €25m = 5, ≥ 15 = 4, ≥ 8 = 3, ≥ 4 = 2, else 1.</td></tr>
+            <tr><td>Strategic fit</td><td>Therapy-area fit, channel</td><td>Average of area fit (1–5) and channel fit (retail Rx 5, hospital 3, specialty 2), rounded.</td></tr>
+            <tr><td>Pipeline &amp; timing</td><td>LoE start / end vs today (Oct 2026)</td><td>Window ended = 1; already open = 2; opens in &lt; 1 yr = 4; 1–3 yrs = 5 (ideal prep time); 3–4 yrs = 3; &gt; 4 yrs = 2.</td></tr>
+            <tr><td>Risk (inverse)</td><td>Litigation, API suppliers, development complexity</td><td>Risk points: litigation 0 / 1.5 / 3; API suppliers ≤ 2 = 1, 3–4 = 0.5, ≥ 5 = 0; complex product = 1. Score = 5 − points (rounded), min 1.</td></tr>
+            <tr><td>Competition (inverse)</td><td>Expected generic entrants</td><td>≤ 3 = 5, 4–6 = 4, 7–10 = 3, 11–15 = 2, &gt; 15 = 1.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+        <h3 style="margin:0">Raw dataset (dummy)</h3>
+        <span style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><a href="data.csv" style="font-size:12.5px;color:var(--accent)">data.csv</a><button class="copy" id="copy" type="button">Copy as CSV</button></span>
+      </div>
+      <div class="tbl-wrap"><table id="raw"></table></div>
+      <p class="wnote" id="copymsg" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="num">06</span><h2>Where the real data would come from</h2><span class="rule"></span></div>
+    <div class="tbl-wrap">
+      <table class="src">
+        <thead><tr><th>Criterion</th><th>Sources in a live build</th></tr></thead>
+        <tbody>
+          <tr><td>Market</td><td>IQVIA MIDAS sales and volume by country; national reimbursement and prescription data.</td></tr>
+          <tr><td>Commercial</td><td>Post-LoE price-erosion benchmarks from comparable molecules; tender and reference-pricing rules by market; parallel-import price differentials.</td></tr>
+          <tr><td>Strategic fit</td><td>Therapy-area strategy, Rx / OTC channel coverage, manufacturing and supply network, existing portfolio adjacency.</td></tr>
+          <tr><td>Timing</td><td>SPC and patent registers (EPO and national offices), paediatric extensions, EMA / HMA decentralised and mutual-recognition approvals.</td></tr>
+          <tr><td>Risk</td><td>Litigation trackers, API supplier base and DMF filings, product complexity and regulatory pathway.</td></tr>
+          <tr><td>Competition</td><td>Generic marketing-authorisation filings and DCP applications, API DMF counts, competitor launch history.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>About this page.</strong> A work sample by Jonathan Hansen showing how I would build a portfolio intelligence view: consistent scoring from data, transparent weighting, and outputs a Business Development team can decide from. Molecule names are real; every figure, date and score input is dummy data invented for demonstration and must not be read as market data.</p>
+    <p>Brand names are trademarks of their respective owners and are used for identification only.</p>
+  </footer>
+</div>
+<div id="tip" hidden></div>
+
+<script type="application/json" id="dataset">
+[
+ {"id":"apixaban","name":"Apixaban","brand":"Eliquis","area":"Cardiovascular · anticoagulant","channel":"Retail Rx","sales":3200,"growth":4,"loeStart":2027.0,"loeEnd":2028.5,"entrants":18,"litigation":2,"apiSuppliers":6,"complex":0,"areaFit":5,"erosion":80,"share":4.0,
+  "risks":[["H","SPC & litigation","Patent still being defended; national dates differ"],["H","Price erosion","Crowded first wave compresses price fast"],["M","Supply / API","Secure API capacity ahead of the window"]]},
+ {"id":"empagliflozin","name":"Empagliflozin","brand":"Jardiance","area":"Cardiometabolic · SGLT2","channel":"Retail Rx","sales":2100,"growth":9,"loeStart":2028.5,"loeEnd":2030.0,"entrants":14,"litigation":1,"apiSuppliers":5,"complex":0,"areaFit":5,"erosion":75,"share":4.0,
+  "risks":[["H","Price erosion","Large, growing pool will draw many entrants"],["M","Timing","Later window: prepare early or be outpaced"],["M","Regulatory","Several indications to cover in the SmPC"]]},
+ {"id":"edoxaban","name":"Edoxaban","brand":"Lixiana","area":"Cardiovascular · anticoagulant","channel":"Retail Rx","sales":650,"growth":6,"loeStart":2028.0,"loeEnd":2029.5,"entrants":5,"litigation":1,"apiSuppliers":3,"complex":0,"areaFit":5,"erosion":65,"share":7.0,
+  "risks":[["M","Market size","Smaller pool caps absolute revenue"],["M","Litigation","Verify SPC and any paediatric extension by market"],["L","Supply / API","Fewer API sources; qualify early"]]},
+ {"id":"sacubitril","name":"Sacubitril/valsartan","brand":"Entresto","area":"Cardiovascular · heart failure","channel":"Retail Rx","sales":1300,"growth":10,"loeStart":2027.5,"loeEnd":2029.0,"entrants":8,"litigation":2,"apiSuppliers":4,"complex":1,"areaFit":3,"erosion":70,"share":5.0,
+  "risks":[["H","Litigation","Combination and formulation patents extend exposure"],["M","Development","Complex fixed-dose combination to develop"],["M","Price erosion","Moderate entrant count"]]},
+ {"id":"dapagliflozin","name":"Dapagliflozin","brand":"Forxiga","area":"Cardiometabolic · SGLT2","channel":"Retail Rx","sales":1600,"growth":7,"loeStart":2026.0,"loeEnd":2027.5,"entrants":15,"litigation":1,"apiSuppliers":6,"complex":0,"areaFit":5,"erosion":80,"share":3.5,
+  "risks":[["H","Timing","Window already open; entering behind first movers"],["H","Price erosion","High entrant count"],["M","Tender exposure","Tender-driven markets compress margin"]]},
+ {"id":"tofacitinib","name":"Tofacitinib","brand":"Xeljanz","area":"Immunology · JAK inhibitor","channel":"Specialty","sales":420,"growth":-3,"loeStart":2028.5,"loeEnd":2030.0,"entrants":4,"litigation":1,"apiSuppliers":2,"complex":0,"areaFit":2,"erosion":55,"share":8.0,
+  "risks":[["H","Channel fit","Specialty prescribing sits outside a volume model"],["M","Demand","Class safety restrictions limit growth"],["M","Supply / API","Only two API sources"]]},
+ {"id":"rivaroxaban","name":"Rivaroxaban","brand":"Xarelto","area":"Cardiovascular · anticoagulant","channel":"Retail Rx","sales":1900,"growth":-12,"loeStart":2024.0,"loeEnd":2025.0,"entrants":25,"litigation":0,"apiSuppliers":8,"complex":0,"areaFit":5,"erosion":90,"share":2.0,
+  "risks":[["H","Timing","Window has passed; generics established"],["H","Price erosion","Prices already heavily eroded"],["H","Share","Incumbent generics hold the shelf"]]},
+ {"id":"ticagrelor","name":"Ticagrelor","brand":"Brilique","area":"Cardiovascular · antiplatelet","channel":"Retail Rx","sales":480,"growth":-5,"loeStart":2025.0,"loeEnd":2026.0,"entrants":9,"litigation":0,"apiSuppliers":5,"complex":0,"areaFit":3,"erosion":80,"share":4.0,
+  "risks":[["H","Timing","Window closing"],["M","Market size","Modest and shrinking pool"],["M","Price erosion","Moderate entrant count"]]}
+]
+</script>
+
+<script>
+(function(){
+  var NOW = 2026.8;
+  var DATA = JSON.parse(document.getElementById('dataset').textContent);
+  var KEYS = ['M','C','F','T','R','K'];
+  var LABEL = {M:'Market attractiveness',C:'Commercial potential',F:'Strategic fit',T:'Pipeline & timing',R:'Risk (inverse)',K:'Competition (inverse)'};
+  var PRESETS = {
+    base:  {name:'Base',             w:{M:20,C:20,F:15,T:15,R:15,K:15}},
+    access:{name:'Access & volume',  w:{M:25,C:20,F:20,T:15,R:10,K:10}},
+    risk:  {name:'Risk-averse',      w:{M:15,C:15,F:10,T:15,R:25,K:20}},
+    first: {name:'First-wave timing',w:{M:15,C:20,F:10,T:30,R:10,K:15}}
+  };
+  var raw = Object.assign({}, PRESETS.base.w);
+  var active = 'base';
+
+  function clamp(x){ return Math.max(1, Math.min(5, x)); }
+  function fmt(n,d){ return n.toLocaleString('en-GB',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); }
+  function yr(x){ var y=Math.floor(x); return (x-y>=0.5?'H2 ':'H1 ')+y; }
+
+  // ---------- scoring rules (each returns {s, why}) ----------
+  function rM(d){
+    var b = d.sales>=2500?5:d.sales>=1500?4:d.sales>=800?3:d.sales>=400?2:1;
+    var adj = d.growth>=8?1:(d.growth<0?-1:0);
+    var s = clamp(b+adj);
+    return {s:s, why:'€'+fmt(d.sales)+'m sales → '+b+'; growth '+d.growth+'% → '+(adj>0?'+1':adj<0?'−1':'no adj.')};
+  }
+  function rev(d){ var mid=d.sales*(1-d.erosion/100)*(d.share/100); return {mid:mid, lo:mid*0.6, hi:mid*1.4}; }
+  function rC(d){
+    var m = rev(d).mid;
+    var s = m>=25?5:m>=15?4:m>=8?3:m>=4?2:1;
+    return {s:s, why:fmt(d.sales)+' × (1 − '+d.erosion+'%) × '+d.share+'% = €'+fmt(m,1)+'m'};
+  }
+  var CH = {'Retail Rx':5,'Hospital':3,'Specialty':2};
+  function rF(d){
+    var c = CH[d.channel]||3, s = clamp(Math.round((d.areaFit+c)/2));
+    return {s:s, why:'area fit '+d.areaFit+', '+d.channel.toLowerCase()+' channel '+c+' → avg '+fmt((d.areaFit+c)/2,1)};
+  }
+  function rT(d){
+    var lead = d.loeStart - NOW, s, why;
+    if (d.loeEnd + 1 < NOW){ s=1; why='window ended '+yr(d.loeEnd); }
+    else if (lead < 0){ s=2; why='window open since '+yr(d.loeStart)+' (late)'; }
+    else if (lead < 1){ s=4; why='opens in '+fmt(lead,1)+' yrs (tight)'; }
+    else if (lead <= 3){ s=5; why='opens in '+fmt(lead,1)+' yrs (ideal)'; }
+    else if (lead <= 4){ s=3; why='opens in '+fmt(lead,1)+' yrs'; }
+    else { s=2; why='opens in '+fmt(lead,1)+' yrs (distant)'; }
+    return {s:s, why:why};
+  }
+  function rR(d){
+    var lit=[0,1.5,3][d.litigation], api=d.apiSuppliers<=2?1:(d.apiSuppliers<=4?0.5:0), cx=d.complex?1:0;
+    var pts=lit+api+cx, s=Math.max(1, 5-Math.round(pts));
+    return {s:s, why:'litigation '+lit+' + API '+api+' + complexity '+cx+' = '+pts+' pts'};
+  }
+  function rK(d){
+    var e=d.entrants, s=e<=3?5:e<=6?4:e<=10?3:e<=15?2:1;
+    return {s:s, why:e+' expected entrants'};
+  }
+  var RULE = {M:rM,C:rC,F:rF,T:rT,R:rR,K:rK};
+  DATA.forEach(function(d){
+    d.S={}; d.why={};
+    KEYS.forEach(function(k){ var r=RULE[k](d); d.S[k]=r.s; d.why[k]=r.why; });
+    d.rev = rev(d);
+  });
+
+  function norm(w){ var t=KEYS.reduce(function(a,k){return a+w[k];},0)||1; var o={}; KEYS.forEach(function(k){o[k]=w[k]/t;}); return o; }
+  function score(d,w){ return Math.round(KEYS.reduce(function(a,k){return a+w[k]*d.S[k];},0)*100)/100; }
+  function band(x){ return x>=4?'Prioritise':x>=3?'Pursue':x>=2?'Monitor':'Decline'; }
+  var BASEW = norm(PRESETS.base.w);
+  DATA.forEach(function(d){ d.base=score(d,BASEW); d.baseBand=band(d.base); });
+
+  // ---------- tooltip ----------
+  var tip=document.getElementById('tip');
+  function showTip(e,html){ tip.innerHTML=html; tip.hidden=false; moveTip(e); }
+  function moveTip(e){ var x=e.clientX+14, y=e.clientY+14, w=tip.offsetWidth, h=tip.offsetHeight;
+    if (x+w>window.innerWidth-8) x=e.clientX-w-14; if (y+h>window.innerHeight-8) y=e.clientY-h-14;
+    tip.style.left=x+'px'; tip.style.top=y+'px'; }
+  function hideTip(){ tip.hidden=true; }
+  function bindTips(svg){
+    svg.querySelectorAll('[data-tip]').forEach(function(el){
+      el.addEventListener('mouseenter',function(e){ showTip(e, el.getAttribute('data-tip')); });
+      el.addEventListener('mousemove',moveTip);
+      el.addEventListener('mouseleave',hideTip);
+    });
+  }
+
+  // ---------- weights UI ----------
+  var pre=document.getElementById('presets');
+  Object.keys(PRESETS).forEach(function(key){
+    var b=document.createElement('button'); b.type='button'; b.textContent=PRESETS[key].name; b.id='preset-'+key;
+    b.setAttribute('aria-pressed', key===active?'true':'false');
+    b.addEventListener('click',function(){ raw=Object.assign({},PRESETS[key].w); active=key; syncSliders(); update(); });
+    pre.appendChild(b);
+  });
+  var wbox=document.getElementById('weights');
+  KEYS.forEach(function(k){
+    var row=document.createElement('div'); row.className='wrow';
+    row.innerHTML='<label for="w-'+k+'">'+LABEL[k]+'</label><input type="range" id="w-'+k+'" min="0" max="40" step="5"><output id="o-'+k+'" for="w-'+k+'"></output>';
+    wbox.appendChild(row);
+    row.querySelector('input').addEventListener('input',function(e){ raw[k]=+e.target.value; active=null; update(); });
+  });
+  function syncSliders(){ KEYS.forEach(function(k){ document.getElementById('w-'+k).value=raw[k]; }); }
+  syncSliders();
+
+  // ---------- matrix ----------
+  function renderMatrix(w, rows){
+    var X0=72,X1=512,Y0=36,Y1=364, sx=function(v){return X0+(v-1)*(X1-X0)/4;}, sy=function(v){return Y1-(v-1)*(Y1-Y0)/4;};
+    var g='';
+    for (var v=1; v<=5; v++){ g+='<line class="grid" x1="'+sx(v)+'" y1="'+Y0+'" x2="'+sx(v)+'" y2="'+Y1+'"/><line class="grid" x1="'+X0+'" y1="'+sy(v)+'" x2="'+X1+'" y2="'+sy(v)+'"/>';
+      g+='<text x="'+sx(v)+'" y="'+(Y1+16)+'" text-anchor="middle">'+v+'</text><text x="'+(X0-8)+'" y="'+(sy(v)+4)+'" text-anchor="end">'+v+'</text>'; }
+    g+='<line class="ax" x1="'+sx(3)+'" y1="'+Y0+'" x2="'+sx(3)+'" y2="'+Y1+'" style="stroke-dasharray:0"/><line class="ax" x1="'+X0+'" y1="'+sy(3)+'" x2="'+X1+'" y2="'+sy(3)+'" style="stroke-dasharray:0"/>';
+    g+='<text class="q" x="'+(X1-4)+'" y="'+(Y0+12)+'" text-anchor="end">Prioritise</text>';
+    g+='<text class="q" x="'+(X0+4)+'" y="'+(Y0+12)+'">Big but hard to win</text>';
+    g+='<text class="q" x="'+(X1-4)+'" y="'+(Y1-6)+'" text-anchor="end">Winnable niche</text>';
+    g+='<text class="q" x="'+(X0+4)+'" y="'+(Y1-6)+'">Deprioritise</text>';
+    g+='<text x="'+((X0+X1)/2)+'" y="'+(Y1+34)+'" text-anchor="middle">Ability to win → (fit, timing, risk, competition)</text>';
+    g+='<text transform="translate(18,'+((Y0+Y1)/2)+') rotate(-90)" text-anchor="middle">Market attractiveness → (market, commercial)</text>';
+    var pts = rows.map(function(d){
+      var wa=w.M+w.C, wb=w.F+w.T+w.R+w.K;
+      var a = wa? (w.M*d.S.M+w.C*d.S.C)/wa : (d.S.M+d.S.C)/2;
+      var b = wb? (w.F*d.S.F+w.T*d.S.T+w.R*d.S.R+w.K*d.S.K)/wb : (d.S.F+d.S.T+d.S.R+d.S.K)/4;
+      return {d:d, x:sx(b), y:sy(a), r:6+Math.sqrt(d.sales/1000)*9, a:a, b:b};
+    }).sort(function(p,q){ return q.r-p.r; });
+    // labels: try right, left, above, below; avoid other labels and bubbles
+    var placed=[];
+    function hit(bx){ if (bx.x<2||bx.x+bx.w>538||bx.y<2||bx.y+bx.h>380) return true;
+      for (var i=0;i<placed.length;i++){ var p=placed[i]; if (bx.x<p.x+p.w&&bx.x+bx.w>p.x&&bx.y<p.y+p.h&&bx.y+bx.h>p.y) return true; }
+      for (var j=0;j<pts.length;j++){ var c=pts[j]; var nx=Math.max(bx.x,Math.min(c.x,bx.x+bx.w)), ny=Math.max(bx.y,Math.min(c.y,bx.y+bx.h)); if ((nx-c.x)*(nx-c.x)+(ny-c.y)*(ny-c.y) < c.r*c.r) return true; }
+      return false; }
+    var labs='';
+    pts.slice().sort(function(p,q){return p.y-q.y;}).forEach(function(p){
+      var t=p.d.name, w0=t.length*6.6, h=13;
+      var c=[{x:p.x+p.r+5,y:p.y+4,a:'start',bx:p.x+p.r+5,by:p.y-9},{x:p.x-p.r-5,y:p.y+4,a:'end',bx:p.x-p.r-5-w0,by:p.y-9},
+             {x:p.x,y:p.y-p.r-5,a:'middle',bx:p.x-w0/2,by:p.y-p.r-17},{x:p.x,y:p.y+p.r+14,a:'middle',bx:p.x-w0/2,by:p.y+p.r+2}];
+      var pick=c[0]; for (var i=0;i<c.length;i++){ if (!hit({x:c[i].bx,y:c[i].by,w:w0,h:h})){ pick=c[i]; break; } }
+      placed.push({x:pick.bx,y:pick.by,w:w0,h:h});
+      labs+='<text class="lab" x="'+pick.x+'" y="'+pick.y+'" text-anchor="'+pick.a+'">'+t+'</text>';
+    });
+    var dots='';
+    pts.forEach(function(p){
+      var tipH='<b>'+p.d.name+'</b> ('+p.d.brand+')<br>Attractiveness '+fmt(p.a,2)+' · Ability to win '+fmt(p.b,2)+'<br>EU sales €'+fmt(p.d.sales)+'m · score '+fmt(p.d.cur,2)+'<br>'+p.d.band;
+      dots+='<circle class="ring v-'+p.d.band+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill-opacity="0.9" data-tip="'+tipH.replace(/"/g,'&quot;')+'" tabindex="0" aria-label="'+p.d.name+', '+p.d.band+'"/>';
+    });
+    var svg=document.getElementById('matrix'); svg.innerHTML=g+dots+labs; bindTips(svg);
+  }
+
+  // ---------- timeline ----------
+  function renderTimeline(rows){
+    var L=150,R=520,Y0=30,RH=33, a=2024,b=2031, sx=function(v){return L+(v-a)*(R-L)/(b-a);};
+    var list=rows.slice().sort(function(p,q){return p.loeStart-q.loeStart||p.name.localeCompare(q.name);});
+    var H=Y0+list.length*RH+24, g='';
+    for (var y=a;y<=b;y++){ g+='<line class="grid" x1="'+sx(y)+'" y1="'+(Y0-6)+'" x2="'+sx(y)+'" y2="'+(Y0+list.length*RH)+'"/><text x="'+sx(y)+'" y="'+(Y0+list.length*RH+16)+'" text-anchor="middle">'+y+'</text>'; }
+    list.forEach(function(d,i){
+      var y=Y0+i*RH+RH/2;
+      g+='<text class="lab" x="8" y="'+(y+4)+'">'+d.name+'</text>';
+      var x1=sx(d.loeStart), x2=Math.max(sx(d.loeEnd), x1+6);
+      g+='<rect class="v-'+d.band+'" x="'+x1.toFixed(1)+'" y="'+(y-7)+'" width="'+(x2-x1).toFixed(1)+'" height="14" rx="4" data-tip="<b>'+d.name+'</b><br>LoE spread '+yr(d.loeStart)+' to '+yr(d.loeEnd)+'<br>Timing score '+d.S.T+': '+d.why.T+'"/>';
+    });
+    var nx=sx(NOW); g+='<line class="now" x1="'+nx+'" y1="'+(Y0-10)+'" x2="'+nx+'" y2="'+(Y0+list.length*RH)+'"/><text class="nowt" x="'+(nx+4)+'" y="'+(Y0-12)+'">Today</text>';
+    var svg=document.getElementById('timeline'); svg.setAttribute('viewBox','0 0 540 '+H); svg.innerHTML=g; bindTips(svg);
+  }
+
+  // ---------- revenue ----------
+  function renderRevenue(rows){
+    var L=150,R=460,Y0=24,RH=33, mx=40, sx=function(v){return L+v*(R-L)/mx;};
+    var list=rows.slice().sort(function(p,q){return q.rev.hi-p.rev.hi;});
+    var H=Y0+list.length*RH+30, g='';
+    [0,10,20,30,40].forEach(function(t){ g+='<line class="grid" x1="'+sx(t)+'" y1="'+(Y0-6)+'" x2="'+sx(t)+'" y2="'+(Y0+list.length*RH)+'"/><text x="'+sx(t)+'" y="'+(Y0+list.length*RH+16)+'" text-anchor="middle">€'+t+'m</text>'; });
+    list.forEach(function(d,i){
+      var y=Y0+i*RH+RH/2, a=sx(d.rev.lo), b=sx(d.rev.hi), m=sx(d.rev.mid);
+      g+='<text class="lab" x="8" y="'+(y+4)+'">'+d.name+'</text>';
+      g+='<rect class="rng" x="'+a.toFixed(1)+'" y="'+(y-5)+'" width="'+(b-a).toFixed(1)+'" height="10" rx="5" fill-opacity="0.35" data-tip="<b>'+d.name+'</b><br>'+d.why.C+'<br>Range €'+fmt(d.rev.lo,1)+'m to €'+fmt(d.rev.hi,1)+'m"/>';
+      g+='<circle class="mid ring" cx="'+m.toFixed(1)+'" cy="'+y+'" r="5"/>';
+      g+='<text x="'+(b+6).toFixed(1)+'" y="'+(y+4)+'">€'+fmt(d.rev.lo,0)+'–'+fmt(d.rev.hi,0)+'m</text>';
+    });
+    var svg=document.getElementById('revenue'); svg.setAttribute('viewBox','0 0 540 '+H); svg.innerHTML=g; bindTips(svg);
+  }
+
+  // ---------- table ----------
+  function heat(s){ return 'background:color-mix(in srgb, var(--heat) '+(s*13)+'%, transparent)'; }
+  function renderTable(rows){
+    var tb=document.querySelector('#rank tbody'), h='';
+    rows.forEach(function(d,i){
+      var dl=Math.round((d.cur-d.base)*100)/100, cls=dl>0?'up':dl<0?'down':'flat', arrow=dl>0?'▲':dl<0?'▼':'·';
+      h+='<tr><td class="n mono">'+(i+1)+'</td><td class="mol"><b>'+d.name+'</b><small>'+d.brand+' · '+d.area+'</small></td>'+
+         '<td class="mono">'+d.loeStart.toFixed(1)+'–'+d.loeEnd.toFixed(1)+'</td><td class="n mono">€'+fmt(d.sales)+'m</td>';
+      KEYS.forEach(function(k){ h+='<td class="c"><span class="sc" style="'+heat(d.S[k])+'" title="'+LABEL[k]+': '+d.why[k].replace(/"/g,'&quot;')+'">'+d.S[k]+'</span></td>'; });
+      h+='<td class="n"><span class="tot">'+d.cur.toFixed(2)+'</span></td><td class="n"><span class="delta '+cls+'">'+arrow+' '+Math.abs(dl).toFixed(2)+'</span></td>'+
+         '<td><span class="pill"><span class="dot d-'+d.band+'"></span>'+d.band+'</span>'+(d.band!==d.baseBand?'<span class="chg">was '+d.baseBand+'</span>':'')+'</td></tr>';
+    });
+    tb.innerHTML=h;
+  }
+
+  // ---------- summary ----------
+  function renderTiles(rows){
+    var top=rows[0], counts={Prioritise:0,Pursue:0,Monitor:0,Decline:0}; rows.forEach(function(d){counts[d.band]++;});
+    var biggest=DATA.slice().sort(function(p,q){return q.rev.mid-p.rev.mid;})[0];
+    var adv=rows.filter(function(d){return d.band==='Prioritise'||d.band==='Pursue';});
+    var cv=adv.filter(function(d){return /^Cardio/.test(d.area);}).length;
+    var html=
+      '<div class="tile"><div class="k">Top pick</div><div class="v">'+top.name+'</div><div class="s">Score '+top.cur.toFixed(2)+' · '+top.band+'</div></div>'+
+      '<div class="tile"><div class="k">Verdict mix</div><div class="v mono">'+counts.Prioritise+' · '+counts.Pursue+' · '+counts.Monitor+' · '+counts.Decline+'</div><div class="s">Prioritise · Pursue · Monitor · Decline</div></div>'+
+      '<div class="tile"><div class="k">Largest prize</div><div class="v">'+biggest.name+'</div><div class="s">€'+fmt(biggest.rev.lo)+'–'+fmt(biggest.rev.hi)+'m a year, indicative</div></div>'+
+      '<div class="tile"><div class="k">Therapy concentration</div><div class="v">'+(adv.length?Math.round(100*cv/adv.length):0)+'%</div><div class="s">of advancing opportunities are cardiovascular / cardiometabolic</div></div>';
+    document.getElementById('tiles').innerHTML=html;
+  }
+
+  // ---------- risks ----------
+  function renderRisks(rows){
+    var h='';
+    rows.slice(0,3).forEach(function(d){
+      h+='<div class="panel rk"><h4><span>'+d.name+'</span><span class="mono">'+d.cur.toFixed(2)+' · '+d.band+'</span></h4>';
+      d.risks.forEach(function(r){ h+='<div class="ri"><span class="sev '+r[0]+'">'+({H:'HIGH',M:'MED',L:'LOW'})[r[0]]+'</span><div><b>'+r[1]+'.</b> '+r[2]+'</div></div>'; });
+      h+='</div>';
+    });
+    document.getElementById('risks').innerHTML=h;
+  }
+
+  // ---------- drill-down ----------
+  var sel=document.getElementById('drill');
+  DATA.forEach(function(d){ var o=document.createElement('option'); o.value=d.id; o.textContent=d.name+' ('+d.brand+')'; sel.appendChild(o); });
+  sel.addEventListener('change',function(){ renderCalc(curW); });
+  function renderCalc(w){
+    var d=DATA.filter(function(x){return x.id===sel.value;})[0];
+    var h='<thead><tr><th>Criterion</th><th>Inputs → rule</th><th class="c">Score</th><th class="n">Weight</th><th class="n">Contribution</th></tr></thead><tbody>', tot=0;
+    KEYS.forEach(function(k){ var c=w[k]*d.S[k]; tot+=c;
+      h+='<tr><td><b>'+LABEL[k]+'</b></td><td class="f">'+d.why[k]+'</td><td class="c"><span class="sc" style="'+heat(d.S[k])+'">'+d.S[k]+'</span></td><td class="n mono">'+Math.round(w[k]*100)+'%</td><td class="n mono">'+c.toFixed(2)+'</td></tr>'; });
+    tot=Math.round(tot*100)/100;
+    h+='</tbody><tfoot><tr><td colspan="3">Weighted total</td><td class="n mono">100%</td><td class="n mono">'+tot.toFixed(2)+' · '+band(tot)+'</td></tr></tfoot>';
+    document.getElementById('calc').innerHTML=h;
+    document.getElementById('revcalc').innerHTML='<b>Indicative revenue.</b> <span class="mono">€'+fmt(d.sales)+'m × (1 − '+d.erosion+'%) × '+d.share+'% = €'+fmt(d.rev.mid,1)+'m</span> midpoint; range <span class="mono">€'+fmt(d.rev.lo,1)+'m to €'+fmt(d.rev.hi,1)+'m</span> (× 0.6 to × 1.4). Expected entrants: '+d.entrants+'; LoE spread '+yr(d.loeStart)+' to '+yr(d.loeEnd)+'.';
+  }
+
+  // ---------- raw data + CSV ----------
+  var COLS=[['name','Molecule'],['brand','Brand'],['area','Therapy area'],['channel','Channel'],['sales','EU sales €m'],['growth','Growth %'],['loeStart','LoE start'],['loeEnd','LoE end'],['entrants','Entrants'],['litigation','Litigation 0–2'],['apiSuppliers','API suppliers'],['complex','Complex 0/1'],['areaFit','Area fit 1–5'],['erosion','Erosion %'],['share','Share %']];
+  (function(){
+    var h='<thead><tr>'+COLS.map(function(c){return '<th>'+c[1]+'</th>';}).join('')+'</tr></thead><tbody>';
+    DATA.forEach(function(d){ h+='<tr>'+COLS.map(function(c){ var v=d[c[0]]; return '<td class="'+(typeof v==='number'?'n mono':'')+'">'+v+'</td>'; }).join('')+'</tr>'; });
+    document.getElementById('raw').innerHTML=h+'</tbody>';
+  })();
+  function csv(){ var q=function(v){ v=String(v); return /[",;\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+    return [COLS.map(function(c){return q(c[1]);}).join(',')].concat(DATA.map(function(d){ return COLS.map(function(c){return q(d[c[0]]);}).join(','); })).join('\n'); }
+  document.getElementById('copy').addEventListener('click',function(){
+    var msg=document.getElementById('copymsg'), text=csv();
+    try { navigator.clipboard.writeText(text).then(function(){ msg.textContent='Dataset copied as CSV.'; }, fallback); } catch(e){ fallback(); }
+    function fallback(){ var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); msg.textContent='Dataset copied as CSV.';}catch(e){ msg.textContent='Copy blocked here; select the table above instead.'; } ta.remove(); }
+  });
+
+  // ---------- legend ----------
+  document.getElementById('legend1').innerHTML=['Prioritise','Pursue','Monitor','Decline'].map(function(b){return '<span><i class="dot d-'+b+'"></i>'+b+'</span>';}).join('')+'<span>Bubble size = EU originator sales</span>';
+
+  // ---------- update ----------
+  var curW=BASEW;
+  function update(){
+    var w=norm(raw); curW=w;
+    KEYS.forEach(function(k){ document.getElementById('o-'+k).textContent=Math.round(w[k]*100)+'%'; });
+    Object.keys(PRESETS).forEach(function(key){ document.getElementById('preset-'+key).setAttribute('aria-pressed', key===active?'true':'false'); });
+    DATA.forEach(function(d){ d.cur=score(d,w); d.band=band(d.cur); });
+    var rows=DATA.slice().sort(function(p,q){return q.cur-p.cur||q.sales-p.sales;});
+    renderTiles(rows); renderMatrix(w,rows); renderTable(rows); renderTimeline(rows); renderRevenue(rows); renderRisks(rows); renderCalc(w);
+  }
+  update();
+})();
+</script>
+
+</body>
+</html>
