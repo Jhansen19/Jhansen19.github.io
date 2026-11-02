@@ -68,6 +68,18 @@ title: "Projects"
 <div class="projects-page">
   <div class="projects-grid">
 
+    <!-- Workshop-to-Decision: AI-assisted transformation workflow -->
+    <div class="project-card">
+      <div class="date">Nov 2026</div>
+      <h3>Workshop-to-Decision: AI-Assisted Workflow from Meeting Notes to Agreed Decisions</h3>
+      <img src="{{ site.baseurl }}/assets/images/workshop-to-decision.jpg" alt="A successful run of the Workshop-to-Decision workflow in n8n" />
+      <p>After every workshop, someone has to turn pages of notes into decisions, owners and risks, and it's easy to get wrong: a question that was only discussed gets written down as decided, and a task nobody took on disappears. This n8n workflow takes raw meeting notes in English or a Nordic language, uses AI to draft a one-page summary for the leadership group, and only saves the decisions, tasks and risks to a shared tracker after a manager approves it. If the main AI service fails, a backup takes over automatically. I tested two AI models against hand-written answer keys on four fictional workshops with deliberate traps: Gemini 3.1 Flash-Lite scored 8.1/10 and never invented a task owner, so it became the default. The project also includes a rollout and adoption plan and an honest comparison with Microsoft Copilot.</p>
+      <a href="https://github.com/Jhansen19/workshop-to-decision-n8n" target="_blank">
+        <i class="fab fa-github" aria-hidden="true" style="margin-right:8px;"></i>
+        View on GitHub
+      </a>
+    </div>
+
     <!-- Portfolio intelligence work sample -->
     <div class="project-card">
       <div class="date">Oct 2026</div>
